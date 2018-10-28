@@ -7,8 +7,8 @@ class CpanelDnsUpdater {
 	constructor(host, domain, username, password) {
 		this._cpanelHost = host;
 		this._cpanelDomain = domain;
-        this._cpanelUsername = username;
-        this._cpanelPassword = password;
+		this._cpanelUsername = username;
+		this._cpanelPassword = password;
 	}
 
 	async addRecord(params) {
