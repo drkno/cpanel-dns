@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "name": "cpanel-dns",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Matthew Knox",
+  "license": "MIT"
+}
