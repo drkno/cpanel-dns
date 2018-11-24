@@ -1,4 +1,4 @@
-import urllib2, base64, json
+import urllib.request, urllib.error, urllib.parse, base64, json
 
 class CpanelDnsUpdater:
     def __init__(self, host, domain, username, password):
@@ -63,7 +63,7 @@ class CpanelDnsUpdater:
         zoneFile = result['data']
         hosts = []
         for line in zoneFile:
-            if filter is None or all([line[key] == val for (key, val) in filter.iteritems()]):
+            if filter is None or all([line[key] == val for (key, val) in filter.items()]):
                 hosts.append(line)
         return hosts
     
@@ -71,19 +71,19 @@ class CpanelDnsUpdater:
         if params is None:
             return None
         try:
-            url = self._cpanelHost + '/json-api/cpanel?' + '&'.join((key + '=' + str(val)) for (key,val) in params.iteritems())
-            request = urllib2.Request(url)
-            b64auth = base64.encodestring('%s:%s' % (self._cpanelUsername, self._cpanelPassword)).replace('\n', '')
+            url = self._cpanelHost + '/json-api/cpanel?' + '&'.join((key + '=' + str(val)) for (key,val) in params.items())
+            request = urllib.request.Request(url)
+            b64auth = base64.encodestring((self._cpanelUsername + ':' + self._cpanelPassword).encode()).decode('utf-8').replace('\n', '')
             request.add_header('Authorization', 'Basic %s' % b64auth)
 
-            result = urllib2.urlopen(request)
+            result = urllib.request.urlopen(request)
             jsonResult = json.load(result)
 
             if jsonResult['cpanelresult'] is not None:
                 return jsonResult['cpanelresult']
             else:
-                print(jsonResult['error'])
-                raise Exception() 
+                print((jsonResult['error']))
+                raise Exception('Return was invalid json') 
         except:
             return None
 

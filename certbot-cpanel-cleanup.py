@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python3
 
 import os, json, sys
 from CpanelDnsUpdater import CpanelDnsUpdater
@@ -16,7 +16,7 @@ certbot_domain = os.environ['CERTBOT_DOMAIN']
 certbot_validation = os.environ['CERTBOT_VALIDATION']
 
 record = {
-    'name': certbot_domain + '.',
+    'name': '_acme-challenge.' + certbot_domain + '.',
     'type': 'TXT'
 }
 result = dns.removeRecord(record)
